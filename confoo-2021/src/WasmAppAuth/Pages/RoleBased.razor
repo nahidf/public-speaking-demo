@@ -1,0 +1,20 @@
+﻿@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
+<AuthorizeView Roles="Admin">
+    <Authorized>
+        Hello Admin @context.User.Identity.Name!
+
+        @if (context.User.Claims.Count() > 0)
+        {
+            <ul>
+                @foreach (var claim in context.User.Claims)
+                {
+                    <li>@claim.Type: @claim.Value</li>
+                }
+            </ul>
+        }
+    </Authorized>
+    <NotAuthorized>
+        User is not authenticated or admin!
+    </NotAuthorized>
+</AuthorizeView>

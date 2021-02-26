@@ -1,0 +1,21 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
+<AuthorizeView Policy="delete-access">
+    <Authorized>
+        Hello @context.User.Identity.Name!
+
+        @if (context.User.Claims.Count() > 0)
+        {
+            <ul>
+                @foreach (var claim in context.User.Claims)
+                {
+                    <li>@claim.Type: @claim.Value</li>
+                }
+            </ul>
+        }
+    </Authorized>
+    <NotAuthorized>
+        User is not authenticated or has no delete access!
+    </NotAuthorized>
+</AuthorizeView>
