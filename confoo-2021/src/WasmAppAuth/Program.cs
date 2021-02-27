@@ -19,19 +19,6 @@ namespace WasmAppAuth
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
-            //builder.Services.AddHttpClient<ApiService>(client =>
-            //{
-            //    client.BaseAddress = new Uri(builder.Configuration["https://localhost:5016"]);
-            //}).AddHttpMessageHandler(sp => 
-            //{
-            //    var handler = sp.GetService<AuthorizationMessageHandler>()
-            //        .ConfigureHandler(
-            //            authorizedUrls: new[] { "https://localhost:5016" },
-            //            scopes: new[] { "companyApi" }
-            //         );
-            //        return handler;
-            //});
-
             builder.Services.AddScoped<CustomAuthorizationMessageHandler>();
             builder.Services.AddHttpClient<ApiService>(client =>
             {
@@ -45,6 +32,8 @@ namespace WasmAppAuth
                 options.ProviderOptions.Authority = "https://localhost:5001";
                 options.ProviderOptions.ClientId = "wasmappauth-client";
                 options.ProviderOptions.ResponseType = "code";
+
+                options.ProviderOptions.DefaultScopes.Add("weather.read");
 
                 options.UserOptions.RoleClaim = "role";
             });

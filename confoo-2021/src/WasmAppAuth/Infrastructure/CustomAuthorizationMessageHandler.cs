@@ -10,7 +10,8 @@ namespace WasmAppAuth.Infrastructure
             : base(provider, navigationManager)
         {
             ConfigureHandler(
-                authorizedUrls: new[] { "https://localhost:7006" });
+                authorizedUrls: new[] { "https://localhost:5016" },                
+                scopes: new[] { "weather.read" });
         }
     }
 }

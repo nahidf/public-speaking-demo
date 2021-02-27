@@ -18,7 +18,18 @@ namespace IdentityServer
 
         public static IEnumerable<ApiScope> ApiScopes =>
             new ApiScope[]
-            { };
+            {
+                new ApiScope("weather.read")
+            };
+
+        public static IEnumerable<ApiResource> ApiResources =>
+            new ApiResource[]
+            {
+                new ApiResource("weatherapi", "My DotNet Core API")
+                {
+                    Scopes = { "weather.read" }
+                }
+            };
 
         public static IEnumerable<Client> Clients =>
             new Client[]
@@ -36,22 +47,7 @@ namespace IdentityServer
                     RedirectUris = { "https://localhost:5015/authentication/login-callback" },
                     PostLogoutRedirectUris = { "https://localhost:5015/authentication/logout-callback" },
 
-                    AllowedScopes = {"openid", "profile"},
-                },
-                new Client
-                {
-                    ClientId = "serverappauth-client",
-                    ClientName = "Blazor Server App Client",
-                    RequireClientSecret = false,
-
-                    AllowedGrantTypes = GrantTypes.Code,
-                    RequirePkce = true,
-
-                    AllowedCorsOrigins = { "https://localhost:5017" },
-                    RedirectUris = { "https://localhost:5017/login-callback" },
-                    PostLogoutRedirectUris = { "https://localhost:5017/logout-callback" },
-
-                    AllowedScopes = {"openid", "profile"},
+                    AllowedScopes = {"openid", "profile", "offline_access", "weather.read" },
                 }
             };
     }

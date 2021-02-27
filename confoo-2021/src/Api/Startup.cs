@@ -29,7 +29,7 @@ namespace Api
                 options =>
                 {
                     options.Authority = "https://localhost:5001";
-                    options.Audience = "weather";
+                    options.Audience = "weatherapi";
                 });
 
             services.AddCors(options =>
@@ -58,6 +58,8 @@ namespace Api
             app.UseRouting();
 
             app.UseCors("default");
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
